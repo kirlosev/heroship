@@ -1,0 +1,31 @@
+.container {
+}
+
+.heading {
+    font-size: 20px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+ModuleSlotButton {
+    width: 64px;
+    height: 64px;
+    border-width: 0;
+}
+
+SlotsGridColumn {
+    flex: 1;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+}
+
+.slotButtonLabel {
+    color: black;
+    -unity-text-align: middle-center;
+}
+
+.shipSprite {
+}

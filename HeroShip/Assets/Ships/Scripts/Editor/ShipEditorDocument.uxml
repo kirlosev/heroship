@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="ShipEditorStyles.uss" />
+    <ui:VisualElement class="container">
+        <ui:Label text="Ship Editor" class="heading" />
+        <uie:ObjectField name="shipSpriteField" lable="Sprite" allow-scene-objects="false" />
+        <uie:Vector2IntField name="shipGridSize" label="Grid Size" />
+        <ui:VisualElement name="shipSprite" class="shipSprite">
+            <ui:VisualElement name="grid" class="grid" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

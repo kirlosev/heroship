@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HeroShip {
+namespace HeroShips.Player {
 public class Player : MonoBehaviour {
     
 }
