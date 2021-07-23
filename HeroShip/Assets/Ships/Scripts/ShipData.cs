@@ -13,8 +13,6 @@ public class ShipData : ScriptableObject {
     public Vector2Int Size => size;
 
     private void Awake() {
-        
-        Debug.Log($"Is grid null? {grid==null}");
         if (grid == null) {
             CreateGrid();
         }

@@ -53,8 +53,6 @@ public class ModuleGrid : ISerializationCallbackReceiver {
 
         for (var x = 0; x < slotsArray.GetLength(0); ++x) {
             for (var y = 0; y < slotsArray.GetLength(1); ++y) {
-                Debug.Log($"[{x},{y}] is {slotsArray[x, y]}");
-
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
             }
