@@ -30,7 +30,7 @@ public class ShipEditorWindow : Editor {
     private VisualElement grid;
 
     void OnEnable() {
-        shipData = (ShipData) target;
+        shipData = target as ShipData;
 
         rootElement = new VisualElement();
         visualTree =
@@ -44,8 +44,8 @@ public class ShipEditorWindow : Editor {
     public override VisualElement CreateInspectorGUI() {
         var shipSprite = rootElement.Query<VisualElement>("shipSprite").First();
         shipSprite.style.backgroundImage = shipData.ShipSprite ? shipData.ShipSprite.texture : null;
-        shipSprite.style.height = shipData.ShipSprite.texture.height * GRID_SCALE;
-        shipSprite.style.width = shipData.ShipSprite.texture.width * GRID_SCALE;
+        shipSprite.style.height = shipData.ShipSprite ? shipData.ShipSprite.texture.height * GRID_SCALE : 0;
+        shipSprite.style.width = shipData.ShipSprite ? shipData.ShipSprite.texture.width * GRID_SCALE : 0;
         
         var shipSpriteField = rootElement.Query<ObjectField>("shipSpriteField").First();
         shipSpriteField.objectType = typeof(Sprite);
@@ -70,6 +70,11 @@ public class ShipEditorWindow : Editor {
 
         grid = rootElement.Query<VisualElement>("grid").First();
         LoadActiveSlotsGrid();
+        
+        var regenerateButton = rootElement.Query<Button>("regenerateButton").First();
+        regenerateButton.RegisterCallback<ClickEvent>(
+            e => { shipData.RegenerateGrid(); }
+        );
 
         return rootElement;
     }

@@ -8,28 +8,30 @@ public class ShipData : ScriptableObject {
     [SerializeField] private Sprite shipSprite;
     [SerializeField] private Vector2Int size = Vector2Int.one;
 
-    [SerializeField] private bool[,] activeSlots; // HideInInspector
-
-    public Grid<ModuleSlot> grid;
+    [SerializeField] public ModuleGrid grid;
     public Sprite ShipSprite => shipSprite;
     public Vector2Int Size => size;
+
+    private void Awake() {
+        
+        Debug.Log($"Is grid null? {grid==null}");
+        if (grid == null) {
+            CreateGrid();
+        }
+    }
 
     private void OnValidate() {
         if (size.x < 1 || size.y < 1) return;
         
-        if (grid == null) {
+        if (grid == null || size.x != grid.Size.x || size.y != grid.Size.y) {
             CreateGrid();
-        }
-        
-        if (activeSlots == null || size.x != activeSlots.GetLength(0) || size.y != activeSlots.GetLength(1)) {
-            activeSlots = new bool[size.x, size.y];
         }
     }
 
     private void CreateGrid() {
         var cellSize = 1f;
         var halfSize = new Vector3(size.x/2f, size.y/2f);
-        grid = new Grid<ModuleSlot>(size.x, size.y, (Grid<ModuleSlot> g, int x, int y) => new ModuleSlot(g, x, y), cellSize, -halfSize);
+        grid = new ModuleGrid(size.x, size.y, cellSize, -halfSize);
     }
 
     public void SetShipSprite(Sprite s) {
@@ -38,13 +40,19 @@ public class ShipData : ScriptableObject {
 
     public void SetSize(Vector2Int s) {
         size = s;
+        RegenerateGrid();
     }
 
-    public Grid<ModuleSlot> GetGrid() {
+    public ModuleGrid GetGrid() {
         if (grid == null) {
-            CreateGrid();
+            RegenerateGrid();
         }
         return grid;
+    }
+
+    public void RegenerateGrid() {
+        if (size.x < 1 || size.y < 1) return;
+        CreateGrid();
     }
 }
 }

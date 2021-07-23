@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f05ad39894e47f4ab12171ff36bd22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipDataRef: {fileID: 11400000, guid: e5257ee6e3ccb41a693c745427a50b05, type: 2}
+  shipDataRef: {fileID: 11400000, guid: d5a9348b35adb40a3922787dedf76b6b, type: 2}
   slotViewInst: {fileID: 2901599068752481284, guid: 1929c150575384eb39c5ddf30e56eba7, type: 3}
   slotsParent: {fileID: 7988100373957137979}
   modulesParent: {fileID: 7988100374603747996}

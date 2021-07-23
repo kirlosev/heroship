@@ -1,17 +1,19 @@
+using System;
 using HeroShips.GridMap;
 using UnityEngine;
 
 namespace HeroShips.Modules {
+[Serializable]
 public class ModuleSlot {
     public bool isActive = true;
     public ModuleData module;
     
-    private int x;
-    private int y;
-    private Grid<ModuleSlot> grid;
+    [SerializeField] private int x;
+    [SerializeField] private int y;
+    // [SerializeField] private ModuleGrid grid;
 
-    public ModuleSlot(Grid<ModuleSlot> grid, int x, int y) {
-        this.grid = grid;
+    public ModuleSlot(ModuleGrid grid, int x, int y) {
+        // this.grid = grid;
         this.x = x;
         this.y = y;
     }
@@ -22,7 +24,7 @@ public class ModuleSlot {
 
     public void SetModuleData(ModuleData module) {
         this.module = module;
-        grid.TriggerGridObjectChangedEvent(x, y);
+        // grid.TriggerGridObjectChangedEvent(x, y);
     }
 }
 }

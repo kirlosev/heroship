@@ -7,5 +7,8 @@
         <ui:VisualElement name="shipSprite" class="shipSprite">
             <ui:VisualElement name="grid" class="grid" />
         </ui:VisualElement>
+        <ui:Button name="regenerateButton">
+            <ui:Label text="Regenerate"/>
+        </ui:Button>
     </ui:VisualElement>
 </ui:UXML>

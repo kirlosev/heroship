@@ -25,6 +25,10 @@ public class ModuleSlotButton : Button {
     }
 
     private void RefreshButton() {
+        if (slot == null) {
+            Debug.LogError($"No slot for {name}");
+            return;
+        }
         // label.text = slot.isActive ? "v" : "x";
         style.backgroundColor = slot.isActive 
             ? new StyleColor(new Color(0f, 1f, 0f, 0.4f)) 
