@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86f62cae57e44e59f66e8c89314a329, type: 3}
   m_Name: Engine
   m_EditorClassIdentifier: 
-  size: {x: 1, y: 1}
+  size: {x: 2, y: 2}
   moduleInst: {fileID: 848510213642519415, guid: e272f51c913ce48a1992444e3714eb79, type: 3}

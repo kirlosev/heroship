@@ -9,10 +9,6 @@ public class ShipView : MonoBehaviour {
     [SerializeField] private Transform modulesParent;
     [SerializeField] private SpriteRenderer viewRend;
 
-    private void Awake() {
-        viewRend.sprite = shipDataRef.ShipSprite;
-    }
-    
     private void Start() {
         GenerateModulesView();
     }
@@ -29,6 +25,7 @@ public class ShipView : MonoBehaviour {
 
                 var worldPosition = shipDataRef.grid.GetWorldPosition(x, y);
                 worldPosition += (Vector3) Vector2.one * shipDataRef.grid.CellSize / 2f;
+                worldPosition += transform.position;
 
                 if (gridObj.module != null) {
                     Instantiate(gridObj.module.ModuleInst, worldPosition, Quaternion.identity, modulesParent);

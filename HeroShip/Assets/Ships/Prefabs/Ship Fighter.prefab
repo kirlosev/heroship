@@ -7,10 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7988100373425484872, guid: 285d32c430360432f8bc11b90ef79315, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 02adf42df7eaf48e0a268b64df31b903, type: 3}
     - target: {fileID: 7988100373566730048, guid: 285d32c430360432f8bc11b90ef79315, type: 3}
       propertyPath: m_Name
-      value: TestShip
+      value: Ship Fighter
       objectReference: {fileID: 0}
+    - target: {fileID: 7988100373566730050, guid: 285d32c430360432f8bc11b90ef79315, type: 3}
+      propertyPath: shipDataRef
+      value: 
+      objectReference: {fileID: 11400000, guid: 339bf84b294e4444a92acf62b03fd5d7, type: 2}
     - target: {fileID: 7988100373566730051, guid: 285d32c430360432f8bc11b90ef79315, type: 3}
       propertyPath: m_RootOrder
       value: 0
