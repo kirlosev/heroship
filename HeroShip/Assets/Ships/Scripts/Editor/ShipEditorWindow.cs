@@ -1,42 +1,27 @@
-using HeroShips.Ships;
+using HeroShip.Ships;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-
+namespace HeroShip.Editor {
 [CustomEditor(typeof(ShipData))]
-public class ShipEditorWindow : Editor {
-    public static float GRID_SCALE = 4f;
-    // public void CreateGUI() {
-    //     // Each editor window contains a root VisualElement object
-    //     VisualElement root = rootVisualElement;
-    //
-    //     // Import UXML
-    //     var visualTree =
-    //         AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Ships/Scripts/Editor/ShipEditorDocument.uxml");
-    //     visualTree.CloneTree(root);
-    //
-    //     // A stylesheet can be added to a VisualElement.
-    //     // The style will be applied to the VisualElement and all of its children.
-    //     var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Ships/Scripts/Editor/ShipEditorStyles.uss");
-    //     root.styleSheets.Add(styleSheet);
-    // }
+public class ShipEditorWindow : UnityEditor.Editor {
+    private static readonly float GridScale = 4f;
 
     private ShipData shipData;
 
     private VisualElement rootElement;
-    private VisualTreeAsset visualTree;
     private VisualElement grid;
 
-    void OnEnable() {
+    private void OnEnable() {
         shipData = target as ShipData;
 
         rootElement = new VisualElement();
-        visualTree =
+        var visualTree =
             AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Ships/Scripts/Editor/ShipEditorDocument.uxml");
         visualTree.CloneTree(rootElement);
-        
+
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Ships/Scripts/Editor/ShipEditorStyles.uss");
         rootElement.styleSheets.Add(styleSheet);
     }
@@ -44,9 +29,9 @@ public class ShipEditorWindow : Editor {
     public override VisualElement CreateInspectorGUI() {
         var shipSprite = rootElement.Query<VisualElement>("shipSprite").First();
         shipSprite.style.backgroundImage = shipData.ShipSprite ? shipData.ShipSprite.texture : null;
-        shipSprite.style.height = shipData.ShipSprite ? shipData.ShipSprite.texture.height * GRID_SCALE : 0;
-        shipSprite.style.width = shipData.ShipSprite ? shipData.ShipSprite.texture.width * GRID_SCALE : 0;
-        
+        shipSprite.style.height = shipData.ShipSprite ? shipData.ShipSprite.texture.height * GridScale : 0;
+        shipSprite.style.width = shipData.ShipSprite ? shipData.ShipSprite.texture.width * GridScale : 0;
+
         var shipSpriteField = rootElement.Query<ObjectField>("shipSpriteField").First();
         shipSpriteField.objectType = typeof(Sprite);
         shipSpriteField.value = shipData.ShipSprite;
@@ -70,25 +55,20 @@ public class ShipEditorWindow : Editor {
 
         grid = rootElement.Query<VisualElement>("grid").First();
         LoadActiveSlotsGrid();
-        
-        var regenerateButton = rootElement.Query<Button>("regenerateButton").First();
-        regenerateButton.RegisterCallback<ClickEvent>(
-            e => { shipData.RegenerateGrid(); }
-        );
 
         return rootElement;
     }
 
-    void LoadActiveSlotsGrid() {
-        this.grid.Clear();
+    private void LoadActiveSlotsGrid() {
+        grid.Clear();
 
         var modulesGrid = shipData.GetGrid();
         for (var x = 0; x < shipData.Size.x; ++x) {
             var column = new SlotsGridColumn();
             grid.Add(column);
-            
+
             for (var y = 0; y < shipData.Size.y; ++y) {
-                var btn = new ModuleSlotButton(x, y, modulesGrid.GetGridObject(x, y));
+                var btn = new ModuleSlotButton(x, y, modulesGrid.GetGridModuleSlot(x, y));
                 btn.RegisterCallback<ClickEvent>(
                     e => {
                         btn.RevertActiveStatus();
@@ -96,7 +76,8 @@ public class ShipEditorWindow : Editor {
                     }
                 );
                 column.Add(btn);
-            }    
+            }
         }
     }
+}
 }

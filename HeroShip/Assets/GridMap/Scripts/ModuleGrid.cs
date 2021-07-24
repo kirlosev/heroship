@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using HeroShips.Modules;
+using HeroShip.Modules;
 using UnityEngine;
 
-namespace HeroShips.GridMap {
+namespace HeroShip.GridMap {
 [Serializable]
 public class ModuleGrid : ISerializationCallbackReceiver {
     public event Action<OnGridObjectChangedEventArgs> OnGridObjectChanged;
@@ -13,6 +13,7 @@ public class ModuleGrid : ISerializationCallbackReceiver {
         public int Y;
     }
 
+    #region Multi-Dimensional Array Serialization
     [SerializeField, HideInInspector] private List<Package> serializedSlots;
     
     [Serializable]
@@ -27,6 +28,23 @@ public class ModuleGrid : ISerializationCallbackReceiver {
             this.slot = slot;
         }
     }
+    
+    public void OnBeforeSerialize() {
+        serializedSlots = new List<Package>();
+        for (var x = 0; x < slotsArray.GetLength(0); ++x) {
+            for (var y = 0; y < slotsArray.GetLength(1); ++y) {
+                serializedSlots.Add(new Package(x,y,slotsArray[x,y]));
+            }
+        }
+    }
+
+    public void OnAfterDeserialize() {
+        slotsArray = new ModuleSlot[width, height];
+        foreach (var s in serializedSlots) {
+            slotsArray[s.x, s.y] = s.slot;
+        }
+    }
+    #endregion
 
     public Vector2Int Size => new Vector2Int(width, height);
     public float CellSize => cellSize;
@@ -50,16 +68,6 @@ public class ModuleGrid : ISerializationCallbackReceiver {
                 slotsArray[x, y] = new ModuleSlot(this, x, y);
             }
         }
-
-        for (var x = 0; x < slotsArray.GetLength(0); ++x) {
-            for (var y = 0; y < slotsArray.GetLength(1); ++y) {
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
-            }
-        }
-
-        Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-        Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
     }
 
     public Vector3 GetWorldPosition(int x, int y) {
@@ -72,53 +80,37 @@ public class ModuleGrid : ISerializationCallbackReceiver {
         return (x, y);
     }
 
-    public void SetGridObject(int x, int y, ModuleSlot value) {
-        if (IsGridPosCorrect(x, y)) {
+    public void SetGridModuleSlot(int x, int y, ModuleSlot value) {
+        if (IsGridPositionCorrect(x, y)) {
             slotsArray[x, y] = value;
-            TriggerGridObjectChangedEvent(x, y);
+            TriggerGridModuleSlotChangedEvent(x, y);
         }
     }
 
-    public void TriggerGridObjectChangedEvent(int x, int y) {
+    public void TriggerGridModuleSlotChangedEvent(int x, int y) {
         OnGridObjectChanged?.Invoke(new OnGridObjectChangedEventArgs() {X = x, Y = y});
     }
 
-    public void SetGridObject(Vector3 worldPosition, ModuleSlot value) {
-        (var x, var y) = GetGridPosition(worldPosition);
-        SetGridObject(x, y, value);
+    public void SetGridModuleSlot(Vector3 worldPosition, ModuleSlot value) {
+        var (x, y) = GetGridPosition(worldPosition);
+        SetGridModuleSlot(x, y, value);
     }
 
-    public ModuleSlot GetGridObject(int x, int y) {
-        if (IsGridPosCorrect(x, y)) {
+    public ModuleSlot GetGridModuleSlot(int x, int y) {
+        if (IsGridPositionCorrect(x, y)) {
             return slotsArray[x, y];
         }
 
-        return default(ModuleSlot);
+        return null;
     }
 
-    public ModuleSlot GetGridObject(Vector3 worldPosition) {
-        (var x, var y) = GetGridPosition(worldPosition);
-        return GetGridObject(x, y);
+    public ModuleSlot GetGridModuleSlot(Vector3 worldPosition) {
+        var (x, y) = GetGridPosition(worldPosition);
+        return GetGridModuleSlot(x, y);
     }
 
-    private bool IsGridPosCorrect(int x, int y) {
+    private bool IsGridPositionCorrect(int x, int y) {
         return x >= 0 && y >= 0 && x < width && y < height;
-    }
-
-    public void OnBeforeSerialize() {
-        serializedSlots = new List<Package>();
-        for (var x = 0; x < slotsArray.GetLength(0); ++x) {
-            for (var y = 0; y < slotsArray.GetLength(1); ++y) {
-                serializedSlots.Add(new Package(x,y,slotsArray[x,y]));
-            }
-        }
-    }
-
-    public void OnAfterDeserialize() {
-        slotsArray = new ModuleSlot[width, height];
-        foreach (var s in serializedSlots) {
-            slotsArray[s.x, s.y] = s.slot;
-        }
     }
 }
 }

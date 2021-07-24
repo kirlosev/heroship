@@ -1,8 +1,8 @@
-using HeroShips.GridMap;
-using HeroShips.Modules;
+using HeroShip.GridMap;
+using HeroShip.Modules;
 using UnityEngine;
 
-namespace HeroShips.Ships {
+namespace HeroShip.Ships {
 [CreateAssetMenu(fileName = "New Ship", menuName = "HeroShip/Ship", order = 0)]
 public class ShipData : ScriptableObject {
     [SerializeField] private Sprite shipSprite;
@@ -19,7 +19,8 @@ public class ShipData : ScriptableObject {
     }
 
     private void OnValidate() {
-        if (size.x < 1 || size.y < 1) return;
+        if (size.x < 1) size.x = 1;
+        if (size.y < 1) size.y = 1;
         
         if (grid == null || size.x != grid.Size.x || size.y != grid.Size.y) {
             CreateGrid();
@@ -48,8 +49,10 @@ public class ShipData : ScriptableObject {
         return grid;
     }
 
-    public void RegenerateGrid() {
-        if (size.x < 1 || size.y < 1) return;
+    private void RegenerateGrid() {
+        if (size.x < 1) size.x = 1;
+        if (size.y < 1) size.y = 1;
+        
         CreateGrid();
     }
 }

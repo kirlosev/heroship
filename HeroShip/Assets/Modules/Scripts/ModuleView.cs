@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HeroShips.Modules {
+namespace HeroShip.Modules {
 public class ModuleView : MonoBehaviour {
     
 }
