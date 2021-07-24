@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 1, y: 2}
   moduleInst: {fileID: 848510213642519415, guid: f70356e78c60846e1b5bda2ef44eca56, type: 3}
+  icon: {fileID: 21300000, guid: 109a1493c3db7449da50b9d668285078, type: 3}

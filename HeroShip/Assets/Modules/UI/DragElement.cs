@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 namespace HeroShip.UI {
 public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+    [SerializeField] private Image icon;
+    
     private ScrollRect scrollRect;
     private ModuleData moduleData;
 
@@ -45,6 +47,7 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void Init(ModuleData md) {
         moduleData = md;
+        icon.sprite = moduleData.Icon;
     }
 }
 }

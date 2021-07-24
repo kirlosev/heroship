@@ -7,5 +7,8 @@ public class ModuleData : ScriptableObject {
 
     [SerializeField] private ModuleView moduleInst;
     public ModuleView ModuleInst => moduleInst;
+
+    [SerializeField] private Sprite icon;
+    public Sprite Icon => icon;
 }
 }
