@@ -1,39 +1,68 @@
+using HeroShip.GridMap;
 using HeroShip.Modules;
 using UnityEngine;
 
 namespace HeroShip.Ships {
 public class ShipView : MonoBehaviour {
+    // TODO: assuming that there's only a single modable ship on the scene.. for now. I need the access to the grid through ShipData
+    // Alternately, I could fire raycasts from the pointer while dragging a module targeting ModuleSlot to get one of many grids on the scene
+    public static ShipView Instance;
+    
     [SerializeField] private ShipData shipDataRef;
     [SerializeField] private SlotView slotViewInst;
     [SerializeField] private Transform slotsParent;
     [SerializeField] private Transform modulesParent;
-    [SerializeField] private SpriteRenderer viewRend;
 
+    public ModuleGrid Grid => shipDataRef.grid;
+    
+    private void Awake() {
+        Instance = this;
+    }
+    
     private void Start() {
         GenerateModulesView();
+        Grid.OnModuleAdded += OnNewModuleAdded;
+    }
+
+    private void OnNewModuleAdded() {
+        GenerateModules();
     }
     
     private void GenerateModulesView() {
-        for (var x = 0; x < shipDataRef.grid.Size.x; ++x) {
-            for (var y = 0; y < shipDataRef.grid.Size.y; ++y) {
-                var gridObj = shipDataRef.grid.GetGridModuleSlot(x, y);
+        GenerateSlots();
+        GenerateModules();
+    }
+
+    private void GenerateSlots() {
+        for (var x = 0; x < Grid.Size.x; ++x) {
+            for (var y = 0; y < Grid.Size.y; ++y) {
+                var gridObj = Grid.GetGridModuleSlot(x, y);
                 if (gridObj == null) {
                     Debug.LogError($"There's no Module Slot on grid at position(x: {x}, y: {y})");
                     continue;
                 }
-                if (!gridObj.isActive) continue;
+                if (!gridObj.IsActive) continue;
 
-                var worldPosition = shipDataRef.grid.GetWorldPosition(x, y);
-                worldPosition += (Vector3) Vector2.one * shipDataRef.grid.CellSize / 2f;
+                var worldPosition = Grid.GetWorldPosition(x, y);
+                worldPosition += (Vector3) Vector2.one * Grid.CellSize / 2f;
                 worldPosition += transform.position;
 
-                if (gridObj.module != null) {
-                    Instantiate(gridObj.module.ModuleInst, worldPosition, Quaternion.identity, modulesParent);
-                }
-                else {
-                    Instantiate(slotViewInst, worldPosition, Quaternion.identity, slotsParent);
-                }
-            }    
+                var s = Instantiate(slotViewInst, worldPosition, Quaternion.identity, slotsParent);
+                s.Init(gridObj);
+            }
+        }
+    }
+    
+    private void GenerateModules() {
+        var modules = Grid.ModulesOnShip;
+        foreach (var m in modules) {
+            if (m.moduleOnScene != null) continue;
+            
+            var modulePosition = Grid.GetWorldPosition(m.x, m.y);
+            modulePosition += new Vector3(m.moduleData.Size.x, m.moduleData.Size.y)/2f;
+            var mi = Instantiate(m.moduleData.ModuleInst, modulePosition, Quaternion.identity, modulesParent);
+            mi.Init(m.x, m.y);
+            m.moduleOnScene = mi;
         }
     }
 }

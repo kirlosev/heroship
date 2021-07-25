@@ -7,8 +7,8 @@ namespace HeroShip.Ships {
 public class ShipData : ScriptableObject {
     [SerializeField] private Sprite shipSprite;
     [SerializeField] private Vector2Int size = Vector2Int.one;
-
     [SerializeField] public ModuleGrid grid;
+
     public Sprite ShipSprite => shipSprite;
     public Vector2Int Size => size;
 

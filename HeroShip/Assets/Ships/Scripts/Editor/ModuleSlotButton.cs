@@ -27,7 +27,7 @@ public class ModuleSlotButton : Button {
             return;
         }
         
-        style.backgroundColor = slot.isActive
+        style.backgroundColor = slot.IsActive
             ? new StyleColor(new Color(0f, 1f, 0f, 0.4f))
             : new StyleColor(new Color(1f, 0f, 0f, 0.4f));
     }
@@ -36,7 +36,7 @@ public class ModuleSlotButton : Button {
     }
 
     public void RevertActiveStatus() {
-        slot.isActive = !slot.isActive;
+        slot.FlipActiveStatus();
         RefreshButton();
     }
 }

@@ -7,11 +7,11 @@ using UnityEngine.UI;
 namespace HeroShip.UI {
 public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
     [SerializeField] private Image icon;
+    [SerializeField] private ModuleDrag moduleDragInst;
     
     private ScrollRect scrollRect;
     private ModuleData moduleData;
-
-    private ModuleView moduleView;
+    private ModuleDrag moduleDrag;
 
     private void Awake() {
         scrollRect = GetComponentInParent<ScrollRect>();
@@ -22,9 +22,9 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void OnDrag(PointerEventData eventData) {
-        if (moduleView != null) {
+        if (moduleDrag != null) {
             var worldPosition = Cam.Instance.GetWorldPosition(eventData.position);
-            moduleView.SetPosition(worldPosition);
+            moduleDrag.DragToPosition(worldPosition);
             
             return;
         }
@@ -33,16 +33,18 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         if (!EventSystem.current.IsPointerOverGameObject() &&
             !RectTransformUtility.RectangleContainsScreenPoint(scrollRect.viewport, eventData.position) &&
-            moduleView == null) {
+            moduleDrag == null) {
             var worldPosition = Cam.Instance.GetWorldPosition(eventData.position);
-            moduleView = Instantiate(moduleData.ModuleInst, worldPosition, Quaternion.identity);
-            moduleView.SetPosition(worldPosition);
+            moduleDrag = Instantiate(moduleDragInst, worldPosition, Quaternion.identity);
+            moduleDrag.Init(moduleData);
+            moduleDrag.DragToPosition(worldPosition);
         }
     }
 
     public void OnEndDrag(PointerEventData eventData) {
         scrollRect.OnEndDrag(eventData);
-        moduleView = null;
+        if (moduleDrag != null) moduleDrag.AttemptToFit();
+        moduleDrag = null;
     }
 
     public void Init(ModuleData md) {

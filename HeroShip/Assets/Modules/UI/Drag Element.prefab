@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1231360172428417189}
+  moduleDragInst: {fileID: 8421074886539468078, guid: 015e07ed197ea4de2bda6f537cfc4dc7, type: 3}
 --- !u!114 &1231360174234217234
 MonoBehaviour:
   m_ObjectHideFlags: 0

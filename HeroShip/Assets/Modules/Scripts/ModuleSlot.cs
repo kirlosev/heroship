@@ -1,27 +1,34 @@
 using System;
-using HeroShip.GridMap;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace HeroShip.Modules {
 [Serializable]
 public class ModuleSlot {
-    public bool isActive = true;
-    public ModuleData module;
-    
+    [SerializeField] private bool isActive = true;
+    [SerializeField] private bool isOccupied;
     [SerializeField] private int x;
     [SerializeField] private int y;
 
-    public ModuleSlot(ModuleGrid grid, int x, int y) {
+    public bool IsActive => isActive;
+    public bool IsOccupied => isOccupied;
+    public Vector2Int GridPosition => new Vector2Int(x, y);
+
+    public ModuleSlot(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public override string ToString() {
-        return module?.name;
+    public void Occupy() {
+        isOccupied = true;
     }
 
-    public void SetModuleData(ModuleData module) {
-        this.module = module;
+    public void Clear() {
+        isOccupied = false;
+    }
+
+    public void FlipActiveStatus() {
+        isActive = !isActive;
     }
 }
 }
