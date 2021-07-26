@@ -8,6 +8,7 @@ public class ShipView : MonoBehaviour {
     [SerializeField] private SlotView slotViewInst;
     [SerializeField] private Transform slotsParent;
     [SerializeField] private Transform modulesParent;
+    [SerializeField] private ModuleView moduleViewInst;
 
     public ModuleGrid Grid => shipDataRef.grid;
 
@@ -60,9 +61,9 @@ public class ShipView : MonoBehaviour {
             var modulePosition = Grid.GetWorldPosition(m.x, m.y);
             modulePosition += new Vector3(m.moduleData.Size.x, m.moduleData.Size.y)/2f;
             Debug.Log($"{gameObject.name}: modules parent is null: {modulesParent == null}");
-            var mi = Instantiate(m.moduleData.ModuleInst, modulesParent);
+            var mi = Instantiate(moduleViewInst, modulesParent);
             mi.transform.localPosition = modulePosition;
-            mi.Init(m.x, m.y);
+            mi.Init(m.x, m.y, m.moduleData);
             m.moduleOnScene = mi;
         }
     }

@@ -39,7 +39,7 @@ public class LosevHelper {
 
 #if UNITY_EDITOR
     [MenuItem("PlayerPrefs/Clear All")]
-    public static void clearAll() {
+    public static void ClearAll() {
         PlayerPrefs.DeleteAll();
     }
 #endif

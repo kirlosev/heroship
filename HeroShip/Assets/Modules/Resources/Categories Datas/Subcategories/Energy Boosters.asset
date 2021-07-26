@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Energy Boosters
   m_EditorClassIdentifier: 
   title: Boosters
-  icon: {fileID: 0}
-  modules: []
+  icon: {fileID: 21300000, guid: 96efb164240bb40bda4dd69dafe7c1e0, type: 3}

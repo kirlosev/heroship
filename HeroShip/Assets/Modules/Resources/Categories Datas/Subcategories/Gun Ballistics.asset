@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Gun Ballistics
   m_EditorClassIdentifier: 
   title: Ballistics
-  icon: {fileID: 0}
-  modules: []
+  icon: {fileID: 21300000, guid: 0d4165041c1b340058c260e9f9376487, type: 3}

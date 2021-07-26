@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Energy
   m_EditorClassIdentifier: 
   title: Energy
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f609d0bc597be4642a4ed6a2857cb820, type: 3}
   subcategories:
   - {fileID: 11400000, guid: c75eb0e702fdd4e3ab7e08a6be3e31c3, type: 2}
   - {fileID: 11400000, guid: b92f588d25a4e4de4b6ebbd4f2b83e6b, type: 2}

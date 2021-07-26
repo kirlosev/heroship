@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Gun Lasers
   m_EditorClassIdentifier: 
   title: Lasers
-  icon: {fileID: 0}
-  modules: []
+  icon: {fileID: 21300000, guid: b54ad535c80b94d9094640b46a04dc1d, type: 3}

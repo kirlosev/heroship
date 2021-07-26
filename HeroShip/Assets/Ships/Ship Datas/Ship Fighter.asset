@@ -20,7 +20,7 @@ MonoBehaviour:
       y: 0
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 0
         y: 0
     - x: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
       y: 0
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 1
         y: 0
     - x: 1
@@ -89,7 +89,7 @@ MonoBehaviour:
     - x: 1
       y: 3
       slot:
-        isActive: 0
+        isActive: 1
         isOccupied: 0
         x: 1
         y: 3
@@ -125,49 +125,49 @@ MonoBehaviour:
       y: 1
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 2
         y: 1
     - x: 2
       y: 2
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 2
         y: 2
     - x: 2
       y: 3
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 2
         y: 3
     - x: 2
       y: 4
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 2
         y: 4
     - x: 2
       y: 5
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 2
         y: 5
     - x: 2
       y: 6
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 2
         y: 6
     - x: 3
       y: 0
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 3
         y: 0
     - x: 3
@@ -187,7 +187,7 @@ MonoBehaviour:
     - x: 3
       y: 3
       slot:
-        isActive: 0
+        isActive: 1
         isOccupied: 0
         x: 3
         y: 3
@@ -216,7 +216,7 @@ MonoBehaviour:
       y: 0
       slot:
         isActive: 1
-        isOccupied: 0
+        isOccupied: 1
         x: 4
         y: 0
     - x: 4
@@ -265,4 +265,26 @@ MonoBehaviour:
     height: 7
     cellSize: 1
     originPosition: {x: -2.5, y: -3.5, z: -0}
-    modulesOnShip: []
+    modulesOnShip:
+    - moduleData: {fileID: 11400000, guid: f4cce2bc5228a412ca90fb2497c29b39, type: 2}
+      slotsOccupied:
+      - {x: 2, y: 4}
+      - {x: 2, y: 5}
+      - {x: 2, y: 6}
+      moduleOnScene: {fileID: 0}
+    - moduleData: {fileID: 11400000, guid: e7ae36960ff254df095c2c11ffaa6d9e, type: 2}
+      slotsOccupied:
+      - {x: 3, y: 0}
+      - {x: 4, y: 0}
+      moduleOnScene: {fileID: 0}
+    - moduleData: {fileID: 11400000, guid: e7ae36960ff254df095c2c11ffaa6d9e, type: 2}
+      slotsOccupied:
+      - {x: 0, y: 0}
+      - {x: 1, y: 0}
+      moduleOnScene: {fileID: 0}
+    - moduleData: {fileID: 11400000, guid: f4cce2bc5228a412ca90fb2497c29b39, type: 2}
+      slotsOccupied:
+      - {x: 2, y: 1}
+      - {x: 2, y: 2}
+      - {x: 2, y: 3}
+      moduleOnScene: {fileID: 0}

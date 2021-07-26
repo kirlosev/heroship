@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86f62cae57e44e59f66e8c89314a329, type: 3}
+  m_Name: Hole Generator
+  m_EditorClassIdentifier: 
+  title: Hole Generator
+  size: {x: 3, y: 3}
+  icon: {fileID: 21300000, guid: ab5fcf21126b5455092a4dcb81aac2fc, type: 3}
+  category: {fileID: 11400000, guid: 5fa0a7ee972554687a5d79ec3c3d97a2, type: 2}
+  subcategory: {fileID: 11400000, guid: b92f588d25a4e4de4b6ebbd4f2b83e6b, type: 2}

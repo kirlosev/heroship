@@ -133,7 +133,7 @@ MonoBehaviour:
   slotViewInst: {fileID: 2901599068752481284, guid: 1929c150575384eb39c5ddf30e56eba7, type: 3}
   slotsParent: {fileID: 7988100373957137979}
   modulesParent: {fileID: 7988100374603747996}
-  viewRend: {fileID: 7988100373425484872}
+  moduleViewInst: {fileID: 8622927777355320986, guid: 7c21d44a3e88e40f0a3180b520849ada, type: 3}
 --- !u!1 &7988100373957137976
 GameObject:
   m_ObjectHideFlags: 0

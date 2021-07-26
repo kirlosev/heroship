@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: Armor Plate 1x1
   m_EditorClassIdentifier: 
   title: Plate 1x1
-  icon: {fileID: 0}
-  modules:
-  - {fileID: 11400000, guid: 44d4390938969414c8e31dd86c82f3c4, type: 2}
-  - {fileID: 11400000, guid: 1338a160d4a9448b6af13e7b9d9c161d, type: 2}
-  - {fileID: 11400000, guid: f2d766478516f4b57b16819d8b36ee04, type: 2}
+  icon: {fileID: 21300000, guid: 83774f85f841b44caa7b9a8b20c7ec08, type: 3}

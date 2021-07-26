@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: Armor Plate 2x1
   m_EditorClassIdentifier: 
   title: Plate 2x1
-  icon: {fileID: 0}
-  modules:
-  - {fileID: 11400000, guid: 3da1891dddafb4dcc922345784ecf3e5, type: 2}
-  - {fileID: 11400000, guid: 4c4a488995b0b4bae88607acfd5cfeb9, type: 2}
-  - {fileID: 11400000, guid: 57bceff03d6ea4cf09b95a8c385ae8ad, type: 2}
+  icon: {fileID: 21300000, guid: 1d3e6ae2b9c644790a177fa922f680f0, type: 3}

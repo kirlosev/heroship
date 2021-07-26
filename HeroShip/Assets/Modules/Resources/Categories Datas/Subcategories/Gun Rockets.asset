@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Gun Rockets
   m_EditorClassIdentifier: 
   title: Rockets
-  icon: {fileID: 0}
-  modules: []
+  icon: {fileID: 21300000, guid: 6c04bd5d260df4756b475eb9b92b929e, type: 3}
