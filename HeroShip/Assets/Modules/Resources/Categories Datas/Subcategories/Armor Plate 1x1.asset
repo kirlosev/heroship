@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a2f060c2694ecebd199943fd1f407a, type: 3}
+  m_Name: Armor Plate 1x1
+  m_EditorClassIdentifier: 
+  title: Plate 1x1
+  icon: {fileID: 0}
+  modules:
+  - {fileID: 11400000, guid: 44d4390938969414c8e31dd86c82f3c4, type: 2}
+  - {fileID: 11400000, guid: 1338a160d4a9448b6af13e7b9d9c161d, type: 2}
+  - {fileID: 11400000, guid: f2d766478516f4b57b16819d8b36ee04, type: 2}

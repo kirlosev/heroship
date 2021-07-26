@@ -15,7 +15,7 @@ public class ModuleDrag : MonoBehaviour {
     }
 
     public void DragToPosition(Vector3 position) {
-        var grid = ShipView.Instance.Grid;
+        var grid = ShipSpawner.Instance.CurrShip.Grid;
         var slotUnderPointer = grid.GetGridModuleSlot(position);
         if (slotUnderPointer != null) {
             var canFit = grid.CheckFitting(slotUnderPointer.GridPosition, moduleData.Size);
@@ -32,7 +32,7 @@ public class ModuleDrag : MonoBehaviour {
 
     public void AttemptToFit() {
         if (latestFittableSlot != null) {
-            var grid = ShipView.Instance.Grid;
+            var grid = ShipSpawner.Instance.CurrShip.Grid;
             grid.SetModule(latestFittableSlot.GridPosition.x, latestFittableSlot.GridPosition.y, moduleData);
         }
         Destroy(gameObject);

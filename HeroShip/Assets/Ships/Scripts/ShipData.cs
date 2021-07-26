@@ -1,5 +1,4 @@
 using HeroShip.GridMap;
-using HeroShip.Modules;
 using UnityEngine;
 
 namespace HeroShip.Ships {

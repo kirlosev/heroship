@@ -7,6 +7,8 @@ public class Cam : MonoBehaviour {
     public static Cam Instance;
 
     [SerializeField] private UnityEngine.Camera cam;
+    [SerializeField] private Vector3Variable currentShipSizeRef;
+    [SerializeField] private float minCameraSize = 4f;
 
     public float Height => cam.orthographicSize;
     public float Width => Screen.width * Height / Screen.height;
@@ -19,6 +21,8 @@ public class Cam : MonoBehaviour {
     public float TopEdge => transform.position.y + Height;
     public float LeftEdge => transform.position.x - Width;
     public float RightEdge => transform.position.x + Width;
+
+    public Vector3 BottomLeftScreenCornerInWorld => GetWorldPosition(Vector2.zero);
 
     public Vector3 GetWorldPosition(Vector2 screenPos) {
         var p = new Vector3(screenPos.x, screenPos.y, -cam.transform.localPosition.z);
@@ -40,6 +44,14 @@ public class Cam : MonoBehaviour {
         return p.x > LeftEdge && p.x < RightEdge && p.y > BottomEdge && p.y < TopEdge;
     }
 
-    public Vector3 BottomLeftScreenCornerInWorld => GetWorldPosition(Vector2.zero);
+    private void LateUpdate() {
+        var targetHeight = currentShipSizeRef.value.y;
+        if (targetHeight < minCameraSize) targetHeight = minCameraSize;
+
+        cam.orthographicSize = LeanTween.easeOutExpo(cam.orthographicSize, targetHeight, Time.deltaTime);
+
+        var targetPosition = new Vector3(0f, -(targetHeight-3f)/2f);
+        LeanTween.move(gameObject, targetPosition, Time.deltaTime);
+    }
 }
 }

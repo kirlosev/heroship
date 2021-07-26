@@ -54,6 +54,22 @@ public class ModuleGrid : ISerializationCallbackReceiver {
     [SerializeField] private List<ModuleOnShipInfo> modulesOnShip = new List<ModuleOnShipInfo>();
 
     public List<ModuleOnShipInfo> ModulesOnShip => modulesOnShip;
+    public Vector3 WorldSize => new Vector3(width * cellSize, height * cellSize);
+
+    public bool HasEmptySlots {
+        get {
+            var hasEmpty = false;
+            foreach (var m in moduleSlots) {
+                if (m.IsActive && !m.IsOccupied) {
+                    Debug.Log($"Slot {m.GridPosition} is not occupied");
+                    hasEmpty = true;
+                    break;
+                }
+            }
+
+            return hasEmpty;
+        }
+    }
 
     [Serializable]
     public class ModuleOnShipInfo {

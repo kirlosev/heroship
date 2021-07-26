@@ -4,24 +4,23 @@ using UnityEngine;
 
 namespace HeroShip.Ships {
 public class ShipView : MonoBehaviour {
-    // TODO: assuming that there's only a single modable ship on the scene.. for now. I need the access to the grid through ShipData
-    // Alternately, I could fire raycasts from the pointer while dragging a module targeting ModuleSlot to get one of many grids on the scene
-    public static ShipView Instance;
-    
     [SerializeField] private ShipData shipDataRef;
     [SerializeField] private SlotView slotViewInst;
     [SerializeField] private Transform slotsParent;
     [SerializeField] private Transform modulesParent;
 
     public ModuleGrid Grid => shipDataRef.grid;
-    
-    private void Awake() {
-        Instance = this;
-    }
-    
+
     private void Start() {
         GenerateModulesView();
+    }
+
+    private void OnEnable() {
         Grid.OnModuleAdded += OnNewModuleAdded;
+    }
+
+    private void OnDisable() {
+        Grid.OnModuleAdded -= OnNewModuleAdded;
     }
 
     private void OnNewModuleAdded() {
@@ -60,7 +59,9 @@ public class ShipView : MonoBehaviour {
             
             var modulePosition = Grid.GetWorldPosition(m.x, m.y);
             modulePosition += new Vector3(m.moduleData.Size.x, m.moduleData.Size.y)/2f;
-            var mi = Instantiate(m.moduleData.ModuleInst, modulePosition, Quaternion.identity, modulesParent);
+            Debug.Log($"{gameObject.name}: modules parent is null: {modulesParent == null}");
+            var mi = Instantiate(m.moduleData.ModuleInst, modulesParent);
+            mi.transform.localPosition = modulePosition;
             mi.Init(m.x, m.y);
             m.moduleOnScene = mi;
         }

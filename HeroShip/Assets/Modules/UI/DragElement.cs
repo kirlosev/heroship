@@ -1,5 +1,6 @@
 using HeroShip.Camera;
 using HeroShip.Modules;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,8 +8,10 @@ using UnityEngine.UI;
 namespace HeroShip.UI {
 public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
     [SerializeField] private Image icon;
+    [SerializeField] private TMP_Text title;
+    [SerializeField] private TMP_Text size;
     [SerializeField] private ModuleDrag moduleDragInst;
-    
+
     private ScrollRect scrollRect;
     private ModuleData moduleData;
     private ModuleDrag moduleDrag;
@@ -50,6 +53,8 @@ public class DragElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void Init(ModuleData md) {
         moduleData = md;
         icon.sprite = moduleData.Icon;
+        title.text = moduleData.Title;
+        size.text = $"{moduleData.Size.x}x{moduleData.Size.y}";
     }
 }
 }

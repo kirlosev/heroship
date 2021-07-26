@@ -89,7 +89,7 @@ MonoBehaviour:
     - x: 1
       y: 3
       slot:
-        isActive: 1
+        isActive: 0
         isOccupied: 0
         x: 1
         y: 3
@@ -187,7 +187,7 @@ MonoBehaviour:
     - x: 3
       y: 3
       slot:
-        isActive: 1
+        isActive: 0
         isOccupied: 0
         x: 3
         y: 3
