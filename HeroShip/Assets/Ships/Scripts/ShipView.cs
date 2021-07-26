@@ -60,7 +60,6 @@ public class ShipView : MonoBehaviour {
             
             var modulePosition = Grid.GetWorldPosition(m.x, m.y);
             modulePosition += new Vector3(m.moduleData.Size.x, m.moduleData.Size.y)/2f;
-            Debug.Log($"{gameObject.name}: modules parent is null: {modulesParent == null}");
             var mi = Instantiate(moduleViewInst, modulesParent);
             mi.transform.localPosition = modulePosition;
             mi.Init(m.x, m.y, m.moduleData);
