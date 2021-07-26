@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace HeroShip.UI {
 public class ErrorWindow : MonoBehaviour {
     [SerializeField] private Transform contentTr;
-    
+
     public void Show() {
         contentTr.gameObject.SetActive(true);
     }
@@ -16,4 +17,5 @@ public class ErrorWindow : MonoBehaviour {
     public void Hide() {
         contentTr.gameObject.SetActive(false);
     }
+}
 }

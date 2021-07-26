@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace HeroShip.UI {
 public abstract class BaseUIScreen : MonoBehaviour {
     [SerializeField] protected Transform contentTr;
 
@@ -18,4 +19,5 @@ public abstract class BaseUIScreen : MonoBehaviour {
     protected virtual void TurnOff() {
         contentTr.gameObject.SetActive(false);
     }
+}
 }
