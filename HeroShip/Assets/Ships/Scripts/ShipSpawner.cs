@@ -6,8 +6,6 @@ namespace HeroShip.Ships
 {
     public class ShipSpawner : MonoBehaviour
     {
-        public static ShipSpawner Instance;
-
         [SerializeField] private BoolVariable reachedFirstShipRef;
         [SerializeField] private BoolVariable reachedLastShipRef;
         [SerializeField] private Vector3Variable currentShipSizeRef;
@@ -21,8 +19,6 @@ namespace HeroShip.Ships
 
         private void Awake()
         {
-            Instance = this;
-
             ships = Resources.LoadAll<ShipView>("Ships/");
             currentShipIndex = 0;
             reachedFirstShipRef.value = true;

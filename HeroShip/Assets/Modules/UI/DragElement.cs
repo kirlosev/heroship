@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 namespace HeroShip.UI
 {
@@ -13,6 +14,8 @@ namespace HeroShip.UI
         [SerializeField] private TMP_Text title;
         [SerializeField] private TMP_Text size;
         [SerializeField] private ModuleDrag moduleDragInst;
+
+        [Inject] private readonly IInstantiator _instantiator;
 
         private ScrollRect scrollRect;
         private ModuleData moduleData;
@@ -45,7 +48,8 @@ namespace HeroShip.UI
                 moduleDrag == null)
             {
                 var worldPosition = Cam.Instance.GetWorldPosition(eventData.position);
-                moduleDrag = Instantiate(moduleDragInst, worldPosition, Quaternion.identity);
+                moduleDrag = _instantiator.InstantiatePrefabForComponent<ModuleDrag>(
+                    moduleDragInst, worldPosition, Quaternion.identity, null);
                 moduleDrag.Init(moduleData);
                 moduleDrag.DragToPosition(worldPosition);
             }

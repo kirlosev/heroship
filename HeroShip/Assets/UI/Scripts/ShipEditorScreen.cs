@@ -1,5 +1,6 @@
 using HeroShip.Ships;
 using UnityEngine;
+using Zenject;
 
 namespace HeroShip.UI
 {
@@ -8,6 +9,8 @@ namespace HeroShip.UI
         public static event System.Action OnConfirmEvent;
 
         [SerializeField] private ErrorWindow errorWindow;
+
+        [Inject] private readonly ShipSpawner _shipSpawner;
 
         protected override void TurnOnOffByDefault()
         {
@@ -31,7 +34,7 @@ namespace HeroShip.UI
 
         public void BTN_CONFIRM()
         {
-            if (ShipSpawner.Instance.CurrShip.Grid.HasEmptySlots)
+            if (_shipSpawner.CurrShip.Grid.HasEmptySlots)
             {
                 errorWindow.Show();
             }

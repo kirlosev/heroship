@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HeroShip.Modules;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace HeroShip.UI
 {
@@ -15,6 +16,8 @@ namespace HeroShip.UI
 
         [SerializeField] private Transform backButton;
         [SerializeField] private TMP_Text backButtonText;
+
+        [Inject] private readonly IInstantiator _instantiator;
 
         private ModuleCategory[] categories;
         private ModuleData[] allModules;
@@ -83,7 +86,7 @@ namespace HeroShip.UI
             CleanUpHolder();
             foreach (var m in modules)
             {
-                var ie = Instantiate(inventoryElementInstance, inventoryHolder);
+                var ie = _instantiator.InstantiatePrefabForComponent<DragElement>(inventoryElementInstance, inventoryHolder);
                 ie.Init(m);
             }
 

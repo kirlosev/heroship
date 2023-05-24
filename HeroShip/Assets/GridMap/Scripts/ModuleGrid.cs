@@ -52,7 +52,7 @@ namespace HeroShip.GridMap
 
         #endregion
 
-        public Vector2Int Size => new Vector2Int(width, height);
+        public Vector2Int Size => new(width, height);
         public float CellSize => cellSize;
 
         [SerializeField] private int width;
@@ -60,10 +60,10 @@ namespace HeroShip.GridMap
         [SerializeField] private float cellSize;
         [SerializeField] private Vector3 originPosition;
         [SerializeField] private ModuleSlot[,] moduleSlots;
-        [SerializeField] private List<ModuleOnShipInfo> modulesOnShip = new List<ModuleOnShipInfo>();
+        [SerializeField] private List<ModuleOnShipInfo> modulesOnShip = new();
 
         public List<ModuleOnShipInfo> ModulesOnShip => modulesOnShip;
-        public Vector3 WorldSize => new Vector3(width * cellSize, height * cellSize);
+        public Vector3 WorldSize => new(width * cellSize, height * cellSize);
 
         public bool HasEmptySlots
         {
@@ -72,12 +72,14 @@ namespace HeroShip.GridMap
                 var hasEmpty = false;
                 foreach (var m in moduleSlots)
                 {
-                    if (m.IsActive && !m.IsOccupied)
+                    if (!m.IsActive || m.IsOccupied)
                     {
-                        Debug.Log($"Slot {m.GridPosition} is not occupied");
-                        hasEmpty = true;
-                        break;
+                        continue;
                     }
+
+                    Debug.Log($"Slot {m.GridPosition} is not occupied");
+                    hasEmpty = true;
+                    break;
                 }
 
                 return hasEmpty;
@@ -127,7 +129,10 @@ namespace HeroShip.GridMap
 
         public void SetModule(int x, int y, ModuleData moduleData)
         {
-            if (!IsGridPositionCorrect(x, y)) return;
+            if (!IsGridPositionCorrect(x, y))
+            {
+                return;
+            }
 
             var moduleForShip = new ModuleOnShipInfo();
             moduleForShip.moduleData = moduleData;
@@ -157,7 +162,10 @@ namespace HeroShip.GridMap
 
         public void RemoveModule(int x, int y)
         {
-            if (!IsGridPositionCorrect(x, y)) return;
+            if (!IsGridPositionCorrect(x, y))
+            {
+                return;
+            }
 
             ModuleOnShipInfo moduleToClean = null;
 
@@ -214,7 +222,9 @@ namespace HeroShip.GridMap
         public bool CheckFitting(Vector2Int gridPosition, Vector2Int size)
         {
             if (gridPosition.x + size.x > width || gridPosition.y + size.y > height)
+            {
                 return false;
+            }
 
             for (var x = 0; x < size.x; ++x)
             {

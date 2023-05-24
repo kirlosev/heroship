@@ -1,12 +1,14 @@
-using HeroShip.GridMap;
 using HeroShip.Ships;
 using UnityEngine;
+using Zenject;
 
 namespace HeroShip.Modules
 {
     public class ModuleDrag : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer icon;
+
+        [Inject] private readonly ShipSpawner _shipSpawner;
 
         private ModuleData moduleData;
         private ModuleSlot latestFittableSlot;
@@ -19,7 +21,7 @@ namespace HeroShip.Modules
 
         public void DragToPosition(Vector3 position)
         {
-            var grid = ShipSpawner.Instance.CurrShip.Grid;
+            var grid = _shipSpawner.CurrShip.Grid;
             var slotUnderPointer = grid.GetGridModuleSlot(position);
             if (slotUnderPointer != null)
             {
@@ -42,7 +44,7 @@ namespace HeroShip.Modules
         {
             if (latestFittableSlot != null)
             {
-                var grid = ShipSpawner.Instance.CurrShip.Grid;
+                var grid = _shipSpawner.CurrShip.Grid;
                 grid.SetModule(latestFittableSlot.GridPosition.x, latestFittableSlot.GridPosition.y, moduleData);
             }
 

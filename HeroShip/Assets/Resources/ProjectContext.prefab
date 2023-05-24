@@ -74,3 +74,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50502b8c7af1f4b43b51aa969cb87b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shipSpawnerPrefab: {fileID: 6684175005410325198, guid: 7e76a9cac2fee41f29eeee7c3220ef6e, type: 3}
