@@ -1,6 +1,7 @@
 using HeroShip.Camera;
 using HeroShip.UI;
 using UnityEngine;
+using Zenject;
 
 namespace HeroShip.Ships
 {
@@ -9,6 +10,8 @@ namespace HeroShip.Ships
         [SerializeField] private BoolVariable reachedFirstShipRef;
         [SerializeField] private BoolVariable reachedLastShipRef;
         [SerializeField] private Vector3Variable currentShipSizeRef;
+
+        [Inject] private readonly Cam _cam;
 
         private ShipView prevShip;
         private ShipView currShip;
@@ -65,12 +68,12 @@ namespace HeroShip.Ships
 
             prevShip = currShip;
 
-            var moveAwayPosX = dir > 0 ? Cam.Instance.LeftEdge : Cam.Instance.RightEdge;
+            var moveAwayPosX = dir > 0 ? _cam.LeftEdge : _cam.RightEdge;
             moveAwayPosX += -Mathf.Sign(dir) * 5f;
             LeanTween.move(prevShip.gameObject, new Vector3(moveAwayPosX, prevShip.transform.position.y), 0.2f)
                 .setOnComplete(DestroyPrevShip);
 
-            var createShipPosX = dir > 0 ? Cam.Instance.RightEdge : Cam.Instance.LeftEdge;
+            var createShipPosX = dir > 0 ? _cam.RightEdge : _cam.LeftEdge;
             createShipPosX += Mathf.Sign(dir) * 5f;
             CreateCurrentShip(Vector3.right * createShipPosX);
         }

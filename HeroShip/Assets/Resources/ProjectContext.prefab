@@ -75,3 +75,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shipSpawnerPrefab: {fileID: 6684175005410325198, guid: 7e76a9cac2fee41f29eeee7c3220ef6e, type: 3}
+  _camRef: {fileID: 903736901660728492, guid: 81e0ec0b2221f44a081644879815180e, type: 3}

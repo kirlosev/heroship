@@ -6,19 +6,12 @@ namespace HeroShip.Camera
 {
     public class Cam : MonoBehaviour
     {
-        public static Cam Instance;
-
         [SerializeField] private UnityEngine.Camera cam;
         [SerializeField] private Vector3Variable currentShipSizeRef;
         [SerializeField] private float minCameraSize = 4f;
 
         public float Height => cam.orthographicSize;
         public float Width => Screen.width * Height / Screen.height;
-
-        private void Awake()
-        {
-            Instance = this;
-        }
 
         public float BottomEdge => transform.position.y - Height;
         public float TopEdge => transform.position.y + Height;

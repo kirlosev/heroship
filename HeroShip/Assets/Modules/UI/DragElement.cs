@@ -16,6 +16,7 @@ namespace HeroShip.UI
         [SerializeField] private ModuleDrag moduleDragInst;
 
         [Inject] private readonly IInstantiator _instantiator;
+        [Inject] private readonly Cam _cam;
 
         private ScrollRect scrollRect;
         private ModuleData moduleData;
@@ -35,7 +36,7 @@ namespace HeroShip.UI
         {
             if (moduleDrag != null)
             {
-                var worldPosition = Cam.Instance.GetWorldPosition(eventData.position);
+                var worldPosition = _cam.GetWorldPosition(eventData.position);
                 moduleDrag.DragToPosition(worldPosition);
 
                 return;
@@ -47,7 +48,7 @@ namespace HeroShip.UI
                 !RectTransformUtility.RectangleContainsScreenPoint(scrollRect.viewport, eventData.position) &&
                 moduleDrag == null)
             {
-                var worldPosition = Cam.Instance.GetWorldPosition(eventData.position);
+                var worldPosition = _cam.GetWorldPosition(eventData.position);
                 moduleDrag = _instantiator.InstantiatePrefabForComponent<ModuleDrag>(
                     moduleDragInst, worldPosition, Quaternion.identity, null);
                 moduleDrag.Init(moduleData);

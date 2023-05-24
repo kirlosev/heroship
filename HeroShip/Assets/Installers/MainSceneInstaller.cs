@@ -1,3 +1,5 @@
+using HeroShip.Camera;
+using UnityEngine;
 using Zenject;
 
 namespace Installers
