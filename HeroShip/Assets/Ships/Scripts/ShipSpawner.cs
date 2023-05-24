@@ -7,25 +7,23 @@ namespace HeroShip.Ships
 {
     public class ShipSpawner : MonoBehaviour
     {
-        [SerializeField] private BoolVariable reachedFirstShipRef;
-        [SerializeField] private BoolVariable reachedLastShipRef;
-        [SerializeField] private Vector3Variable currentShipSizeRef;
-
         [Inject] private readonly Cam _cam;
 
-        private ShipView prevShip;
-        private ShipView currShip;
-        public ShipView CurrShip => currShip;
+        public bool IsFirstShip { get; private set; }
+        public bool IsLastShip { get; private set; }
+        public Vector3 ShipSize { get; private set; }
+        public ShipView CurrShip { get; private set; }
 
-        private ShipView[] ships;
-        private int currentShipIndex;
+        private ShipView _prevShip;
+        private ShipView[] _ships;
+        private int _currentShipIndex;
 
         private void Awake()
         {
-            ships = Resources.LoadAll<ShipView>("Ships/");
-            currentShipIndex = 0;
-            reachedFirstShipRef.value = true;
-            reachedLastShipRef.value = false;
+            _ships = Resources.LoadAll<ShipView>("Ships/");
+            _currentShipIndex = 0;
+            IsFirstShip = true;
+            IsLastShip = false;
         }
 
         private void Start()
@@ -45,32 +43,33 @@ namespace HeroShip.Ships
 
         private void OnSwitchedShip(int dir)
         {
-            if (prevShip != null)
+            if (_prevShip != null)
             {
                 DestroyPrevShip();
             }
 
-            currentShipIndex += dir;
+            _currentShipIndex += dir;
 
             CheckEdgeShipsLimits();
 
-            if (currentShipIndex < 0)
+            if (_currentShipIndex < 0)
             {
-                currentShipIndex = 0;
+                _currentShipIndex = 0;
                 return;
             }
 
-            if (currentShipIndex > ships.Length - 1)
+            if (_currentShipIndex > _ships.Length - 1)
             {
-                currentShipIndex = ships.Length - 1;
+                _currentShipIndex = _ships.Length - 1;
                 return;
             }
 
-            prevShip = currShip;
+            _prevShip = CurrShip;
 
             var moveAwayPosX = dir > 0 ? _cam.LeftEdge : _cam.RightEdge;
             moveAwayPosX += -Mathf.Sign(dir) * 5f;
-            LeanTween.move(prevShip.gameObject, new Vector3(moveAwayPosX, prevShip.transform.position.y), 0.2f)
+            LeanTween
+                .move(_prevShip.gameObject, new Vector3(moveAwayPosX, _prevShip.transform.position.y), 0.2f)
                 .setOnComplete(DestroyPrevShip);
 
             var createShipPosX = dir > 0 ? _cam.RightEdge : _cam.LeftEdge;
@@ -80,24 +79,24 @@ namespace HeroShip.Ships
 
         private void CheckEdgeShipsLimits()
         {
-            reachedFirstShipRef.value = currentShipIndex <= 0;
-            reachedLastShipRef.value = currentShipIndex >= ships.Length - 1;
+            IsFirstShip = _currentShipIndex <= 0;
+            IsLastShip = _currentShipIndex >= _ships.Length - 1;
         }
 
         private void CreateCurrentShip(Vector3 pos)
         {
-            currShip = Instantiate(ships[currentShipIndex], pos, Quaternion.identity);
-            LeanTween.move(currShip.gameObject, Vector3.zero, 0.2f);
+            CurrShip = Instantiate(_ships[_currentShipIndex], pos, Quaternion.identity);
+            LeanTween.move(CurrShip.gameObject, Vector3.zero, 0.2f);
 
-            currentShipSizeRef.value = currShip.Grid.WorldSize;
+            ShipSize = CurrShip.Grid.WorldSize;
 
             CheckEdgeShipsLimits();
         }
 
         private void DestroyPrevShip()
         {
-            Destroy(prevShip.gameObject);
-            prevShip = null;
+            Destroy(_prevShip.gameObject);
+            _prevShip = null;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using HeroShip.Ships;
 using UnityEngine;
+using Zenject;
 
 namespace HeroShip.UI
 {
@@ -9,10 +10,10 @@ namespace HeroShip.UI
         public static event Action<int> OnSwitchedShipEvent;
         public static event Action OnShipSelectedEvent;
 
-        [SerializeField] private BoolVariable reachedFirstShipRef;
-        [SerializeField] private BoolVariable reachedLastShipRef;
         [SerializeField] private Transform switchPrevButton;
         [SerializeField] private Transform switchNextButton;
+
+        [Inject] private readonly ShipSpawner _shipSpawner;
 
         protected override void TurnOnOffByDefault()
         {
@@ -32,8 +33,8 @@ namespace HeroShip.UI
 
         private void Update()
         {
-            switchPrevButton.gameObject.SetActive(!reachedFirstShipRef.value);
-            switchNextButton.gameObject.SetActive(!reachedLastShipRef.value);
+            switchPrevButton.gameObject.SetActive(!_shipSpawner.IsFirstShip);
+            switchNextButton.gameObject.SetActive(!_shipSpawner.IsLastShip);
         }
 
         private void OnEnable()
